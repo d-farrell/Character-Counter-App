@@ -11,8 +11,17 @@ class TextAnalyzer extends HTMLElement {
 
   setupListeners() {
     const textarea = this.querySelector("[data-text-analyzer='textarea']");
+    const characterLimitEl = this.querySelector("[data-text-analyzer='characterLimit']");
 
     textarea.addEventListener("input", this.handleTextareaInput.bind(this));
+
+    characterLimitEl.addEventListener("input", this.handleCharacterLimitInput.bind(this));
+  }
+
+  handleCharacterLimitInput(event) {
+    const limitValue = Number(event.target.value);
+    
+    this.querySelector("[data-text-analyzer='textarea']").setAttribute("maxlength", limitValue);
   }
 
   handleTextareaInput(event) {
@@ -47,22 +56,17 @@ class TextAnalyzer extends HTMLElement {
     const densityList = this.querySelector("[data-text-analyzer='densityList']");
     const characters = event.target.value.split("").filter(character => character !== " ");
     
-    // Count the occurrences of each character
     const characterCount = characters.reduce((acc, character) => {
       acc[character] = (acc[character] || 0) + 1;
       return acc;
     }, {});
 
-    // Clear the list
     densityList.innerHTML = "";
 
-    // Create or update list items for each character
     for (const character in characterCount) {
-      // Check if a list item for this character already exists
       const existingItem = densityList.querySelector(`[data-character="${character.toUpperCase()}"]`);
       
       if (existingItem) {
-        // Update existing item
         const progress = existingItem.querySelector("[data-text-analyzer='densityProgress']");
         const count = existingItem.querySelector("[data-text-analyzer='densityCount']");
         const percentage = existingItem.querySelector("[data-text-analyzer='densityPercentage']");
@@ -71,7 +75,6 @@ class TextAnalyzer extends HTMLElement {
         count.textContent = characterCount[character];
         percentage.textContent = (characterCount[character] / characters.length * 100).toFixed(2) + "%";
       } else {
-        // Create new list item
         const listItem = document.createElement("li");
 
         listItem.setAttribute("data-character", character.toUpperCase());
@@ -86,15 +89,12 @@ class TextAnalyzer extends HTMLElement {
         
         densityList.appendChild(listItem);
 
-        // count the number of list items
         const listItemsCount = densityList.querySelectorAll("[data-text-analyzer='densityListItem']");
         
-        // if there are more than 5 list items, show the see more button
         if (listItemsCount.length > 5) {
           const seeMoreButton = this.querySelector("[data-text-analyzer='densityListSeeMore']");
           seeMoreButton.style.display = "block";
         }
-
       }
     }
   }
