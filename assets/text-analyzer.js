@@ -4,16 +4,14 @@ class TextAnalyzer extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log("Custom element added to page.");
-
     this.setupListeners();
   }
 
   setupListeners() {
-    const textarea = this.querySelector("[data-text-analyzer='textarea']");
+    const textareaEl = this.querySelector("[data-text-analyzer='textarea']");
     const characterLimitEl = this.querySelector("[data-text-analyzer='characterLimit']");
 
-    textarea.addEventListener("input", this.handleTextareaInput.bind(this));
+    textareaEl.addEventListener("input", this.handleTextareaInput.bind(this));
 
     characterLimitEl.addEventListener("input", this.handleCharacterLimitInput.bind(this));
   }
@@ -33,27 +31,27 @@ class TextAnalyzer extends HTMLElement {
 
   handleCharacterCount(event) {
     const characters = event.target.value.length;
-    const totalCharacters = this.querySelector("[data-text-analyzer='totalCharacters']");
+    const totalCharactersEl = this.querySelector("[data-text-analyzer='totalCharacters']");
     
-    totalCharacters.textContent = characters;
+    totalCharactersEl.textContent = characters;
   }
 
   handleWordCount(event) {
     const words = event.target.value.split(" ").filter(word => word !== " ").length;
-    const wordCount = this.querySelector("[data-text-analyzer='wordCount']");
+    const wordCountEl = this.querySelector("[data-text-analyzer='wordCount']");
 
-    wordCount.textContent = words;
+    wordCountEl.textContent = words;
   }
 
   handleSentenceCount(event) {
     const sentences = event.target.value.split(".").filter(sentence => sentence !== " ").length;
-    const sentenceCount = this.querySelector("[data-text-analyzer='sentenceCount']");
+    const sentenceCountEl = this.querySelector("[data-text-analyzer='sentenceCount']");
 
-    sentenceCount.textContent = sentences;
+    sentenceCountEl.textContent = sentences;
   }
 
   handleLetterDensity(event) {
-    const densityList = this.querySelector("[data-text-analyzer='densityList']");
+    const densityListEl = this.querySelector("[data-text-analyzer='densityList']");
     const characters = event.target.value.split("").filter(character => character !== " ");
     
     const characterCount = characters.reduce((acc, character) => {
@@ -61,10 +59,10 @@ class TextAnalyzer extends HTMLElement {
       return acc;
     }, {});
 
-    densityList.innerHTML = "";
+    densityListEl.innerHTML = "";
 
     for (const character in characterCount) {
-      const existingItem = densityList.querySelector(`[data-character="${character.toUpperCase()}"]`);
+      const existingItem = densityListEl.querySelector(`[data-character="${character.toUpperCase()}"]`);
       
       if (existingItem) {
         const progress = existingItem.querySelector("[data-text-analyzer='densityProgress']");
@@ -87,13 +85,13 @@ class TextAnalyzer extends HTMLElement {
           <span data-text-analyzer="densityPercentage">${(characterCount[character] / characters.length * 100).toFixed(2)}%</span>
         `;
         
-        densityList.appendChild(listItem);
+        densityListEl.appendChild(listItem);
 
-        const listItemsCount = densityList.querySelectorAll("[data-text-analyzer='densityListItem']");
+        const listItemsCount = densityListEl.querySelectorAll("[data-text-analyzer='densityListItem']");
         
         if (listItemsCount.length > 5) {
-          const seeMoreButton = this.querySelector("[data-text-analyzer='densityListSeeMore']");
-          seeMoreButton.style.display = "block";
+          const seeMoreButtonEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
+          seeMoreButtonEl.style.display = "block";
         }
       }
     }
