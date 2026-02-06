@@ -15,7 +15,7 @@
   <h1>Analyze your text in real-time.</h1>
 
   <text-analyzer>
-    <textarea name="text" id="text" placeholder="Start typing here… (or paste your text)"></textarea>
+    <textarea name="text" id="text" placeholder="Start typing here… (or paste your text)" data-text-analyzer="textarea"></textarea>
 
     <div>
       <input type="checkbox" id="excludeSpaces" name="excludeSpaces" value="excludeSpaces">
@@ -35,20 +35,25 @@
     </div>
   
     <div>
-      <p>Total Characters: <span id="totalCharacters">0</span></p>
+      <p>Total Characters: <span data-text-analyzer="totalCharacters">0</span></p>
     </div>
   
     <div>
-      <p>Word Count: <span id="wordCount">0</span></p>
+      <p>Word Count: <span data-text-analyzer="wordCount">0</span></p>
     </div>
   
     <div>
-      <p>Sentence Count: <span id="sentenceCount">0</span></p>
+      <p>Sentence Count: <span data-text-analyzer="sentenceCount">0</span></p>
     </div>
   
     <div>
       <p>Letter Density:</p>
       <p>No characters found. Start typing to see letter density.</p>
+
+      <ul data-text-analyzer="densityList">
+        <!-- list items will be added here as user types-->
+      </ul>
+      <button data-text-analyzer="densityListSeeMore" style="display: none;">See More</button>
     </div>
   </text-analyzer>
 </body>
