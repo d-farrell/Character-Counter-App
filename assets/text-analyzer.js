@@ -10,10 +10,23 @@ class TextAnalyzer extends HTMLElement {
   setupListeners() {
     const textareaEl = this.querySelector("[data-text-analyzer='textarea']");
     const characterLimitEl = this.querySelector("[data-text-analyzer='characterLimit']");
+    const excludeSpacesEl = this.querySelector("[data-text-analyzer='excludeSpaces']");
 
     textareaEl.addEventListener("input", this.handleTextareaInput.bind(this));
-
     characterLimitEl.addEventListener("input", this.handleCharacterLimitInput.bind(this));
+    excludeSpacesEl.addEventListener("change", this.handleExcludeSpacesChange.bind(this));
+  }
+
+  handleExcludeSpacesChange(event) {
+    const isChecked = event.target.checked;
+
+    if (isChecked == true) {
+      this.excludeSpaces = true;
+      this.handleCharacterCount(event);
+    } else {
+      this.excludeSpaces = false;
+      this.handleCharacterCount(event);
+    }
   }
 
   handleCharacterLimitInput(event) {
@@ -30,11 +43,21 @@ class TextAnalyzer extends HTMLElement {
     this.handleReadingTime(event)
   }
 
-  handleCharacterCount(event) {
-    const characters = event.target.value.length;
+  handleCharacterCount(event) {    
+    let characterCount;
+    const text = this.querySelector("[data-text-analyzer='textarea']").value;
     const totalCharactersEl = this.querySelector("[data-text-analyzer='totalCharacters']");
-    
-    totalCharactersEl.textContent = characters;
+
+    if (this.excludeSpaces == true) {
+      const textWithoutSpaces = text.replace(/\s/g, "");
+      
+      totalCharactersEl.length = characterCount;
+      characterCount = textWithoutSpaces.length;
+    } else {
+      characterCount = text.length;
+    }
+
+    totalCharactersEl.textContent = characterCount;
   }
 
   handleWordCount(event) {
