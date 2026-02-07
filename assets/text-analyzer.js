@@ -121,10 +121,13 @@ class TextAnalyzer extends HTMLElement {
         densityListEl.appendChild(listItem);
 
         const listItemsCount = densityListEl.querySelectorAll("[data-text-analyzer='densityListItem']");
+
+        const seeMoreButtonEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
         
         if (listItemsCount.length > 5) {
-          const seeMoreButtonEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
           seeMoreButtonEl.style.display = "block";
+        } else {
+          seeMoreButtonEl.style.display = "none";
         }
       }
     }
