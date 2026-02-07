@@ -119,23 +119,22 @@ class TextAnalyzer extends HTMLElement {
         `;
         
         densityListEl.appendChild(listItem);
-
-        const listItemsCount = densityListEl.querySelectorAll("[data-text-analyzer='densityListItem']");
-
-        const seeMoreButtonEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
-        
-        if (listItemsCount.length > 5) {
-          seeMoreButtonEl.style.display = "block";
-        } else {
-          seeMoreButtonEl.style.display = "none";
-        }
       }
     }
 
-    this.handleDensityListEmpty(event);
+    const listItemsCount = densityListEl.querySelectorAll("[data-text-analyzer='densityListItem']");
+    const seeMoreButtonEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
+    
+    if (listItemsCount.length > 5) {
+      seeMoreButtonEl.style.display = "block";
+    } else {
+      seeMoreButtonEl.style.display = "none";
+    }
+
+    this.handleDensityListEmptyMessage(event);
   }
 
-  handleDensityListEmpty(event) {
+  handleDensityListEmptyMessage(event) {
     if (event.target.value.length > 0) {
       this.querySelector("[data-text-analyzer='densityListEmpty']").style.display = "none";
     } else {
