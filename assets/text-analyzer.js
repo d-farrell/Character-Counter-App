@@ -27,6 +27,7 @@ class TextAnalyzer extends HTMLElement {
     this.handleWordCount(event)
     this.handleSentenceCount(event)
     this.handleLetterDensity(event)
+    this.handleReadingTime(event)
   }
 
   handleCharacterCount(event) {
@@ -95,6 +96,19 @@ class TextAnalyzer extends HTMLElement {
         }
       }
     }
+  }
+
+  handleReadingTime(event) {
+    const wordsPerMinute = 225;
+    const words = event.target.value.trim().split(/\s+/);
+    const wordCount = words.filter(word => word.length > 0).length;
+    const readingTime = Math.ceil(wordCount / wordsPerMinute);
+
+    const readingTimeEl = this.querySelector("[data-text-analyzer='readingTime']");
+    const readingTimeUnitEl = this.querySelector("[data-text-analyzer='readingTimeUnit']");
+
+    readingTimeEl.textContent = readingTime;
+    readingTimeUnitEl.textContent = "minutes";
   }
 }
 
