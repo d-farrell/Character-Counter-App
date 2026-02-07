@@ -61,17 +61,26 @@ class TextAnalyzer extends HTMLElement {
   }
 
   handleWordCount(event) {
-    const words = event.target.value.split(" ").filter(word => word !== " ").length;
+    const words = event.target.value.split("").filter(word => word !== " ").length;
     const wordCountEl = this.querySelector("[data-text-analyzer='wordCount']");
 
-    wordCountEl.textContent = words;
+    if (words > 0) {
+      wordCountEl.textContent = words;
+    } else {
+      wordCountEl.textContent = Number(0);
+    }
   }
 
   handleSentenceCount(event) {
-    const sentences = event.target.value.split(".").filter(sentence => sentence !== " ").length;
+    const trimmedSentences = event.target.value.split(".").map(s => s.trim()).filter(s => s.length > 0);
+    const sentences = trimmedSentences.length;
     const sentenceCountEl = this.querySelector("[data-text-analyzer='sentenceCount']");
 
-    sentenceCountEl.textContent = sentences;
+    if (sentences > 0) {
+      sentenceCountEl.textContent = sentences;
+    } else {
+      sentenceCountEl.textContent = Number(0);
+    }
   }
 
   handleLetterDensity(event) {
