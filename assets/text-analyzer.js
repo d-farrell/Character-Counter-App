@@ -50,7 +50,7 @@ class TextAnalyzer extends HTMLElement {
 
     if (this.excludeSpaces == true) {
       const textWithoutSpaces = text.replace(/\s/g, "");
-      
+
       totalCharactersEl.length = characterCount;
       characterCount = textWithoutSpaces.length;
     } else {
@@ -118,6 +118,16 @@ class TextAnalyzer extends HTMLElement {
           seeMoreButtonEl.style.display = "block";
         }
       }
+    }
+
+    this.handleDensityListEmpty(event);
+  }
+
+  handleDensityListEmpty(event) {
+    if (event.target.value.length > 0) {
+      this.querySelector("[data-text-analyzer='densityListEmpty']").style.display = "none";
+    } else {
+      this.querySelector("[data-text-analyzer='densityListEmpty']").style.display = "block";
     }
   }
 
