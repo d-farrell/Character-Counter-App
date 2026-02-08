@@ -11,10 +11,12 @@ class TextAnalyzer extends HTMLElement {
     const textareaEl = this.querySelector("[data-text-analyzer='textarea']");
     const characterLimitEl = this.querySelector("[data-text-analyzer='characterLimit']");
     const excludeSpacesEl = this.querySelector("[data-text-analyzer='excludeSpaces']");
+    const characterLimitCheckboxEl = this.querySelector("[data-text-analyzer='characterLimitCheckbox']");
 
     textareaEl.addEventListener("input", this.handleTextareaInput.bind(this));
     characterLimitEl.addEventListener("input", this.handleCharacterLimitInput.bind(this));
     excludeSpacesEl.addEventListener("change", this.handleExcludeSpacesChange.bind(this));
+    characterLimitCheckboxEl.addEventListener("change", this.handleCharacterLimitToggle.bind(this));
   }
 
   handleExcludeSpacesChange(event) {
@@ -27,6 +29,17 @@ class TextAnalyzer extends HTMLElement {
       this.excludeSpaces = false;
       this.handleCharacterCount(event);
     }
+  }
+  handleCharacterLimitToggle(event) {
+    const isChecked = event.target.checked;
+
+    if (isChecked == true) {
+      this.characterLimit = true;
+    } else {
+      this.characterLimit = false;
+    }
+
+    this.querySelector("[data-text-analyzer='characterLimit']").style.display = isChecked ? "block" : "none";
   }
 
   handleCharacterLimitInput(event) {

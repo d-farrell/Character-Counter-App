@@ -32,21 +32,27 @@
           type="checkbox"
           id="excludeSpaces"
           name="excludeSpaces"
-          value="excludeSpaces"
           data-text-analyzer="excludeSpaces"
         />
         <label for="excludeSpaces">Exclude Spaces</label>
       </div>
 
       <div>
+        <label for="characterLimit">Set Character Limit</label>
+        <input
+          type="checkbox"
+          id="characterLimitCheckbox"
+          name="characterLimitCheckbox"
+          data-text-analyzer="characterLimitCheckbox"
+        />
         <input
           type="number"
           id="characterLimit"
           name="characterLimit"
           value="100"
           data-text-analyzer="characterLimit"
+          style="display: none;"
         />
-        <label for="characterLimit">Set Character Limit</label>
       </div>
 
       <div>
