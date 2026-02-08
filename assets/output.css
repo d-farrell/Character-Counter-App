@@ -5,13 +5,13 @@
   :root, :host {
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-blue-500: #C27CF8;
     --color-neutral-100: #F2F2F7;
     --color-neutral-200: #E4E4EF;
     --color-neutral-600: #404254;
     --color-neutral-700: #2A2B37;
     --color-neutral-900: #12131A;
     --spacing: 0.25rem;
-    --font-weight-bold: 700;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
     --default-font-family: var(--font-family-dm-sans);
@@ -286,6 +286,9 @@
   .gap-4 {
     gap: calc(var(--spacing) * 4);
   }
+  .gap-6 {
+    gap: calc(var(--spacing) * 6);
+  }
   .rounded-lg {
     border-radius: var(--radius-lg);
   }
@@ -452,6 +455,43 @@
   src: url('./fonts/DM_Sans/static/DMSans-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
+}
+@layer base {
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--color-neutral-0);
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  input[type="checkbox"]:checked {
+    background-color: var(--color-blue-500);
+    border: none;
+  }
+  input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -60%) rotate(45deg);
+    width: 5px;
+    height: 10px;
+    border: solid var(--color-neutral-900);
+    border-width: 0 2px 2px 0;
+  }
+  .light input[type="checkbox"] {
+    border: 1px solid var(--color-neutral-900);
+  }
+  .light input[type="checkbox"]:checked {
+    background-color: var(--color-blue-500);
+    border: none;
+  }
 }
 @property --tw-border-style {
   syntax: "*";
