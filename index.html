@@ -11,14 +11,20 @@
       href="./assets/images/favicon-32x32.png"
     />
 
+    <script src="./assets/theme-switcher.js" type="module"></script>
     <script src="./assets/text-analyzer.js" type="module"></script>
 
     <title>Frontend Mentor | Character counter</title>
   </head>
-  <body>
-    <text-analyzer>
-      <h1>Analyze your text in real-time.</h1>
+  <body class="dark-mode">
+    <theme-switcher>
+      <button data-theme-switcher="lightModeButton">Light Mode</button>
+      <button data-theme-switcher="darkModeButton" style="display: none;">Dark Mode</button>
+    </theme-switcher>
 
+    <h1>Analyze your text in real-time.</h1>
+
+    <text-analyzer>
       <textarea
         name="text"
         id="text"
