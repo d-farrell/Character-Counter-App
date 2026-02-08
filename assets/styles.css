@@ -1,5 +1,52 @@
 @import "tailwindcss";
 
+@theme {
+  /* Neutral Colors */
+  --color-neutral-900: #12131A;
+  --color-neutral-800: #21222C;
+  --color-neutral-700: #2A2B37;
+  --color-neutral-600: #404254;
+  --color-neutral-200: #E4E4EF;
+  --color-neutral-100: #F2F2F7;
+  --color-neutral-0: #FFFFFF;
+
+  /* Purple/Blue Colors */
+  --color-blue-400: #D3A0FA;
+  --color-blue-500: #C27CF8;
+
+  /* Yellow */
+  --color-yellow-500: #FF9F00;
+
+  /* Orange */
+  --color-orange-500: #FE8159;
+  --color-orange-800: #DA3701;
+
+  /* Font Family */
+  --font-family-dm-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --default-font-family: var(--font-family-dm-sans);
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/DM_Sans/static/DMSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/DM_Sans/static/DMSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/DM_Sans/static/DMSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
 @utility container {
   margin-inline: auto;
   padding-inline: 16px;
