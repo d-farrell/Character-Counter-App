@@ -39,7 +39,7 @@ class TextAnalyzer extends HTMLElement {
       this.characterLimit = false;
     }
 
-    this.querySelector("[data-text-analyzer='characterLimit']").style.display = isChecked ? "block" : "none";
+    this.querySelector("[data-text-analyzer='characterLimit']").style.display = isChecked ? "inline-block" : "none";
   }
 
   handleCharacterLimitInput(event) {
@@ -80,7 +80,7 @@ class TextAnalyzer extends HTMLElement {
     if (words > 0) {
       wordCountEl.textContent = words;
     } else {
-      wordCountEl.textContent = Number(0);
+      wordCountEl.textContent = "00";
     }
   }
 
@@ -92,7 +92,7 @@ class TextAnalyzer extends HTMLElement {
     if (sentences > 0) {
       sentenceCountEl.textContent = sentences;
     } else {
-      sentenceCountEl.textContent = Number(0);
+      sentenceCountEl.textContent = "00";
     }
   }
 
