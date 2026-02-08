@@ -7,6 +7,7 @@
       "Courier New", monospace;
     --color-orange-500: #FE8159;
     --color-yellow-500: #FF9F00;
+    --color-blue-400: #D3A0FA;
     --color-blue-500: #C27CF8;
     --color-purple-400: oklch(71.4% 0.203 305.504);
     --color-neutral-100: #F2F2F7;
@@ -185,8 +186,32 @@
     white-space: nowrap;
     border-width: 0;
   }
+  .absolute {
+    position: absolute;
+  }
+  .relative {
+    position: relative;
+  }
   .static {
     position: static;
+  }
+  .top-0 {
+    top: calc(var(--spacing) * 0);
+  }
+  .right-0 {
+    right: calc(var(--spacing) * 0);
+  }
+  .right-\[-25px\] {
+    right: -25px;
+  }
+  .right-\[-50\%\] {
+    right: -50%;
+  }
+  .right-\[-50px\] {
+    right: -50px;
+  }
+  .right-\[-75px\] {
+    right: -75px;
   }
   .container {
     width: 100%;
@@ -252,6 +277,9 @@
   .inline-block {
     display: inline-block;
   }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
   .h-\[30px\] {
     height: 30px;
   }
@@ -263,6 +291,9 @@
   }
   .min-h-screen {
     min-height: 100vh;
+  }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
   }
   .w-\[55px\] {
     width: 55px;
@@ -303,6 +334,9 @@
   .gap-6 {
     gap: calc(var(--spacing) * 6);
   }
+  .overflow-hidden {
+    overflow: hidden;
+  }
   .rounded-\[12px\] {
     border-radius: 12px;
   }
@@ -318,6 +352,9 @@
   }
   .border-neutral-600 {
     border-color: var(--color-neutral-600);
+  }
+  .bg-blue-400 {
+    background-color: var(--color-blue-400);
   }
   .bg-neutral-100 {
     background-color: var(--color-neutral-100);
