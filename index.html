@@ -20,106 +20,123 @@
   </head>
   <body class="dark-mode">
 
-    <div>
-      <div>
-        <h1 class="sr-only">Character Counter</h1>
-        <img src="./assets/images/logo-dark-theme.svg" alt="logo">
+    <div class="container">
+      <div class="flex justify-between mt-8 mb-12">
+        <div>
+          <a href="/" class="hover:cursor-pointer">
+            <h1 class="sr-only">Character Counter</h1>
+            <img src="./assets/images/logo-dark-theme.svg" alt="logo">
+          </a>
+        </div>
+  
+        <theme-switcher>
+          <button data-theme-switcher="lightModeButton" class="hover:cursor-pointer">
+            <span class="sr-only">Light Mode</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.98" d="M11 1.833v1.834m0 14.666v1.834M3.666 11H1.833m3.955-5.212L4.49 4.492m11.72 1.296 1.297-1.296M5.788 16.215 4.49 17.512m11.72-1.296 1.297 1.296M20.166 11h-1.833m-2.75 0a4.583 4.583 0 1 1-9.167 0 4.583 4.583 0 0 1 9.167 0"/><defs><clipPath id="a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></svg>
+          </button>
+          
+          <button data-theme-switcher="darkModeButton" style="display: none;">
+            <span class="sr-only">Dark Mode</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.98" d="M20.125 11.877A7.333 7.333 0 1 1 10.124 1.875a9.168 9.168 0 1 0 10 10.002Z"/><defs><clipPath id="a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></svg>
+          </button>
+        </theme-switcher>
       </div>
-
-      <theme-switcher>
-        <button data-theme-switcher="lightModeButton">
-          <span class="sr-only">Light Mode</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.98" d="M11 1.833v1.834m0 14.666v1.834M3.666 11H1.833m3.955-5.212L4.49 4.492m11.72 1.296 1.297-1.296M5.788 16.215 4.49 17.512m11.72-1.296 1.297 1.296M20.166 11h-1.833m-2.75 0a4.583 4.583 0 1 1-9.167 0 4.583 4.583 0 0 1 9.167 0"/><defs><clipPath id="a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></svg>
-        </button>
-        
-        <button data-theme-switcher="darkModeButton" style="display: none;">
-          <span class="sr-only">Dark Mode</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.98" d="M20.125 11.877A7.333 7.333 0 1 1 10.124 1.875a9.168 9.168 0 1 0 10 10.002Z"/><defs><clipPath id="a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></svg>
-        </button>
-      </theme-switcher>
     </div>
 
-    <h1>Analyze your text in real-time.</h1>
+    <div class="container">
+      <h1 class="text-center text-[40px] lg:text-[64px] font-bold tracking-[-1px] leading-none">
+        Analyze your text <br/> in real-time.
+      </h1>
 
-    <text-analyzer>
-      <textarea
-        name="text"
-        id="text"
-        placeholder="Start typing here… (or paste your text)"
-        maxlength="100"
-        data-text-analyzer="textarea"
-      ></textarea>
+      <text-analyzer class="mt-12 block">
+        <textarea
+          class="w-full h-[200px] p-4 mb-4 rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500"
+          name="text"
+          id="text"
+          placeholder="Start typing here… (or paste your text)"
+          maxlength="100"
+          data-text-analyzer="textarea"
+        ></textarea>
+  
+        <div class="flex flex-row gap-4 justify-between">
+          <div class="flex flex-row gap-4">
+            <div>
+              <input
+                type="checkbox"
+                id="excludeSpaces"
+                name="excludeSpaces"
+                data-text-analyzer="excludeSpaces"
+              />
+              <label for="excludeSpaces">Exclude Spaces</label>
+            </div>
+      
+            <div>
+              <input
+                type="checkbox"
+                id="characterLimitCheckbox"
+                name="characterLimitCheckbox"
+                data-text-analyzer="characterLimitCheckbox"
+              />
+              <input
+                type="number"
+                id="characterLimit"
+                name="characterLimit"
+                value="100"
+                data-text-analyzer="characterLimit"
+                style="display: none;"
+              />
+              <label for="characterLimit">Set Character Limit</label>
+            </div>
+          </div>
 
-      <div>
-        <input
-          type="checkbox"
-          id="excludeSpaces"
-          name="excludeSpaces"
-          data-text-analyzer="excludeSpaces"
-        />
-        <label for="excludeSpaces">Exclude Spaces</label>
-      </div>
+          <div>
+            <p>
+              Approx. reading time:
+              <span id="readingTime" data-text-analyzer='readingTime'>0</span>
+              <span id="readingTimeUnit" data-text-analyzer='readingTimeUnit'>minutes</span>
+            </p>
+          </div>
+        </div>
+  
+        <div class="grid grid-cols-3 gap-4 mt-12">          
+          <div class="flex flex-col gap-2">
+            <p>
+              Total Characters:
+              <span data-text-analyzer="totalCharacters">00</span>
+            </p>
+          </div>
+    
+          <div class="flex flex-col gap-2">
+            <p>
+              Word Count:
+              <span data-text-analyzer="wordCount">00</span>
+            </p>
+          </div>
+    
+          <div class="flex flex-col gap-2">
+            <p>
+              Sentence Count:
+              <span data-text-analyzer="sentenceCount">00</span>
+            </p>
+          </div>
+        </div>
+  
+        <div class="mt-8 block">
+          <p>Letter Density:</p>
+          <p data-text-analyzer="densityListEmpty" style="display: block;">No characters found. Start typing to see letter density.</p>
+          <ul data-text-analyzer="densityList">
+            <!-- list items will be added here as user types-->
+          </ul>
+          <button
+            data-text-analyzer="densityListSeeMore"
+            style="display: none;"
+          >
+            See More
+          </button>
+        </div>
+      </text-analyzer>
+    </div>
 
-      <div>
-        <label for="characterLimit">Set Character Limit</label>
-        <input
-          type="checkbox"
-          id="characterLimitCheckbox"
-          name="characterLimitCheckbox"
-          data-text-analyzer="characterLimitCheckbox"
-        />
-        <input
-          type="number"
-          id="characterLimit"
-          name="characterLimit"
-          value="100"
-          data-text-analyzer="characterLimit"
-          style="display: none;"
-        />
-      </div>
 
-      <div>
-        <p>
-          Approx. reading time:
-          <span id="readingTime" data-text-analyzer='readingTime'>0</span>
-          <span id="readingTimeUnit" data-text-analyzer='readingTimeUnit'>minutes</span>
-        </p>
-      </div>
-
-      <div>
-        <p>
-          Total Characters:
-          <span data-text-analyzer="totalCharacters">0</span>
-        </p>
-      </div>
-
-      <div>
-        <p>
-          Word Count:
-          <span data-text-analyzer="wordCount">0</span>
-        </p>
-      </div>
-
-      <div>
-        <p>
-          Sentence Count:
-          <span data-text-analyzer="sentenceCount">0</span>
-        </p>
-      </div>
-
-      <div>
-        <p>Letter Density:</p>
-        <p data-text-analyzer="densityListEmpty" style="display: block;">No characters found. Start typing to see letter density.</p>
-        <ul data-text-analyzer="densityList">
-          <!-- list items will be added here as user types-->
-        </ul>
-        <button
-          data-text-analyzer="densityListSeeMore"
-          style="display: none;"
-        >
-          See More
-        </button>
-      </div>
-    </text-analyzer>
   </body>
 </html>
