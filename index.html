@@ -19,10 +19,25 @@
     <title>Frontend Mentor | Character counter</title>
   </head>
   <body class="dark-mode">
-    <theme-switcher>
-      <button data-theme-switcher="lightModeButton">Light Mode</button>
-      <button data-theme-switcher="darkModeButton" style="display: none;">Dark Mode</button>
-    </theme-switcher>
+
+    <div>
+      <div>
+        <h1 class="sr-only">Character Counter</h1>
+        <img src="./assets/images/logo-dark-theme.svg" alt="logo">
+      </div>
+
+      <theme-switcher>
+        <button data-theme-switcher="lightModeButton">
+          <span class="sr-only">Light Mode</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.98" d="M11 1.833v1.834m0 14.666v1.834M3.666 11H1.833m3.955-5.212L4.49 4.492m11.72 1.296 1.297-1.296M5.788 16.215 4.49 17.512m11.72-1.296 1.297 1.296M20.166 11h-1.833m-2.75 0a4.583 4.583 0 1 1-9.167 0 4.583 4.583 0 0 1 9.167 0"/><defs><clipPath id="a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></svg>
+        </button>
+        
+        <button data-theme-switcher="darkModeButton" style="display: none;">
+          <span class="sr-only">Dark Mode</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.98" d="M20.125 11.877A7.333 7.333 0 1 1 10.124 1.875a9.168 9.168 0 1 0 10 10.002Z"/><defs><clipPath id="a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></svg>
+        </button>
+      </theme-switcher>
+    </div>
 
     <h1>Analyze your text in real-time.</h1>
 
