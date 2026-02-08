@@ -18,24 +18,25 @@
 
     <title>Frontend Mentor | Character counter</title>
   </head>
-  <body class="dark-mode">
+  <body class="dark bg-neutral-900 text-neutral-0 bg-[url('/assets/images/bg-dark-theme.png')] bg-cover bg-center bg-no-repeat min-h-screen light:bg-neutral-0 light:text-neutral-900 light:bg-[url('/assets/images/bg-light-theme.png')]">
 
     <div class="container">
       <div class="flex justify-between mt-8 mb-12">
         <div>
           <a href="/" class="hover:cursor-pointer">
             <h1 class="sr-only">Character Counter</h1>
-            <img src="./assets/images/logo-dark-theme.svg" alt="logo">
+            <img src="/assets/images/logo-dark-theme.svg" alt="logo" class="block light:hidden">
+            <img src="/assets/images/logo-light-theme.svg" alt="logo" class="hidden light:block">
           </a>
         </div>
   
         <theme-switcher>
-          <button data-theme-switcher="lightModeButton" class="hover:cursor-pointer">
+          <button data-theme-switcher="lightModeButton" class="hover:cursor-pointer text-neutral-0 light:text-neutral-900">
             <span class="sr-only">Light Mode</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.98" d="M11 1.833v1.834m0 14.666v1.834M3.666 11H1.833m3.955-5.212L4.49 4.492m11.72 1.296 1.297-1.296M5.788 16.215 4.49 17.512m11.72-1.296 1.297 1.296M20.166 11h-1.833m-2.75 0a4.583 4.583 0 1 1-9.167 0 4.583 4.583 0 0 1 9.167 0"/><defs><clipPath id="a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></svg>
           </button>
           
-          <button data-theme-switcher="darkModeButton" style="display: none;">
+          <button data-theme-switcher="darkModeButton" style="display: none;" class="text-neutral-0 light:text-neutral-900 hover:cursor-pointer">
             <span class="sr-only">Dark Mode</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.98" d="M20.125 11.877A7.333 7.333 0 1 1 10.124 1.875a9.168 9.168 0 1 0 10 10.002Z"/><defs><clipPath id="a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></svg>
           </button>
@@ -44,17 +45,17 @@
     </div>
 
     <div class="container">
-      <h1 class="text-center text-[40px] lg:text-[64px] font-bold tracking-[-1px] leading-none">
+      <h1 class="text-center text-[40px] lg:text-[64px] font-bold tracking-[-1px] leading-none text-neutral-0 light:text-neutral-900">
         Analyze your text <br/> in real-time.
       </h1>
 
       <text-analyzer class="mt-12 block">
         <textarea
-          class="w-full h-[200px] p-4 mb-4 rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500"
+          class="w-full h-[200px] p-4 mb-4 rounded-lg border border-neutral-600 bg-neutral-700 text-neutral-200 light:border-neutral-200 light:bg-neutral-100 light:text-neutral-700"
           name="text"
           id="text"
-          placeholder="Start typing here… (or paste your text)"
           maxlength="100"
+          placeholder="Start typing here… (or paste your text)"
           data-text-analyzer="textarea"
         ></textarea>
   
@@ -67,7 +68,7 @@
                 name="excludeSpaces"
                 data-text-analyzer="excludeSpaces"
               />
-              <label for="excludeSpaces">Exclude Spaces</label>
+              <label for="excludeSpaces" class="text-neutral-200 light:text-neutral-900">Exclude Spaces</label>
             </div>
       
             <div>
@@ -85,12 +86,12 @@
                 data-text-analyzer="characterLimit"
                 style="display: none;"
               />
-              <label for="characterLimit">Set Character Limit</label>
+              <label for="characterLimit" class="text-neutral-200 light:text-neutral-900">Set Character Limit</label>
             </div>
           </div>
 
           <div>
-            <p>
+            <p class="text-neutral-0 light:text-neutral-900">
               Approx. reading time:
               <span id="readingTime" data-text-analyzer='readingTime'>0</span>
               <span id="readingTimeUnit" data-text-analyzer='readingTimeUnit'>minutes</span>
@@ -100,21 +101,21 @@
   
         <div class="grid grid-cols-3 gap-4 mt-12">          
           <div class="flex flex-col gap-2">
-            <p>
+            <p class="text-neutral-0 light:text-neutral-900">
               Total Characters:
               <span data-text-analyzer="totalCharacters">00</span>
             </p>
           </div>
     
           <div class="flex flex-col gap-2">
-            <p>
+            <p class="text-neutral-0 light:text-neutral-900">
               Word Count:
               <span data-text-analyzer="wordCount">00</span>
             </p>
           </div>
     
           <div class="flex flex-col gap-2">
-            <p>
+            <p class="text-neutral-0 light:text-neutral-900">
               Sentence Count:
               <span data-text-analyzer="sentenceCount">00</span>
             </p>
@@ -122,8 +123,8 @@
         </div>
   
         <div class="mt-8 block">
-          <p>Letter Density:</p>
-          <p data-text-analyzer="densityListEmpty" style="display: block;">No characters found. Start typing to see letter density.</p>
+          <p class="text-neutral-0 light:text-neutral-900">Letter Density:</p>
+          <p data-text-analyzer="densityListEmpty" style="display: block;" class="text-neutral-0 light:text-neutral-900">No characters found. Start typing to see letter density.</p>
           <ul data-text-analyzer="densityList">
             <!-- list items will be added here as user types-->
           </ul>

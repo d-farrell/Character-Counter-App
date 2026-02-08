@@ -19,16 +19,16 @@ class ThemeModeSwitcher extends HTMLElement {
     this.querySelector("[data-theme-switcher='darkModeButton']").style.display = "none";
     this.querySelector("[data-theme-switcher='lightModeButton']").style.display = "block";
 
-    document.body.classList.remove("light-mode");
-    document.body.classList.add("dark-mode");
+    document.body.classList.remove("light");
+    document.body.classList.add("dark");
   }
 
   handleLightModeClick() {
     this.querySelector("[data-theme-switcher='darkModeButton']").style.display = "block";
     this.querySelector("[data-theme-switcher='lightModeButton']").style.display = "none";
 
-    document.body.classList.remove("dark-mode");
-    document.body.classList.add("light-mode");
+    document.body.classList.remove("dark");
+    document.body.classList.add("light");
   }
 }
 

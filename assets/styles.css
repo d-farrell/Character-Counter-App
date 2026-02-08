@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@custom-variant dark (&&:where(.dark, .dark *));
+@custom-variant light (&&:where(.light, .light *));
+
 @theme {
   /* Neutral Colors */
   --color-neutral-900: #12131A;
