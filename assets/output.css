@@ -13,6 +13,7 @@
     --color-neutral-200: #E4E4EF;
     --color-neutral-600: #404254;
     --color-neutral-700: #2A2B37;
+    --color-neutral-800: #21222C;
     --color-neutral-900: #12131A;
     --spacing: 0.25rem;
     --container-5xl: 64rem;
@@ -370,6 +371,9 @@
   .bg-neutral-700 {
     background-color: var(--color-neutral-700);
   }
+  .bg-neutral-800 {
+    background-color: var(--color-neutral-800);
+  }
   .bg-neutral-900 {
     background-color: var(--color-neutral-900);
   }
@@ -618,6 +622,7 @@
   }
   progress[data-text-analyzer="densityProgress"]::-webkit-progress-bar {
     border-radius: 9999px;
+    background-color: var(--color-neutral-800);
   }
   progress[data-text-analyzer="densityProgress"]::-webkit-progress-value {
     background-color: var(--color-blue-400);
@@ -627,6 +632,16 @@
   progress[data-text-analyzer="densityProgress"]::-moz-progress-bar {
     background-color: var(--color-blue-400);
     border-radius: 9999px;
+  }
+  progress[data-text-analyzer="densityProgress"]::-moz-progress-bar {
+    background-color: var(--color-blue-400);
+    border-radius: 9999px;
+  }
+  progress[data-text-analyzer="densityProgress"]::-webkit-progress-bar {
+    background-color: var(--color-neutral-800);
+  }
+  progress[data-text-analyzer="densityProgress"] {
+    background-color: var(--color-neutral-800);
   }
 }
 @property --tw-border-style {

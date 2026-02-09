@@ -123,8 +123,8 @@ class TextAnalyzer extends HTMLElement {
       
       listItem.innerHTML = `
         <span class="text-neutral-0 light:text-neutral-900 text-lg min-w-[24px]" data-text-analyzer="densityCharacter">${character}</span>
-        <div class="flex-1 h-3">
-          <progress class="w-full h-full rounded-full bg-neutral-700 light:bg-neutral-200" data-text-analyzer="densityProgress" value="${count}" max="${characters.length}">0</progress>
+        <div class="flex flex-1 h-3">
+          <progress class="w-full h-full rounded-full bg-neutral-800 light:bg-neutral-200" data-text-analyzer="densityProgress" value="${count}" max="${characters.length}">0</progress>
         </div>
         <span class="text-neutral-0 light:text-neutral-900 text-base text-right min-w-[100px] whitespace-nowrap" data-text-analyzer="densityStats">${count} (${percentage}%)</span>
       `;
