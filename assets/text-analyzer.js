@@ -12,11 +12,14 @@ class TextAnalyzer extends HTMLElement {
     const characterLimitEl = this.querySelector("[data-text-analyzer='characterLimit']");
     const excludeSpacesEl = this.querySelector("[data-text-analyzer='excludeSpaces']");
     const characterLimitCheckboxEl = this.querySelector("[data-text-analyzer='characterLimitCheckbox']");
+    const densityListSeeMoreEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
+    
 
     textareaEl.addEventListener("input", this.handleTextareaInput.bind(this));
     characterLimitEl.addEventListener("input", this.handleCharacterLimitInput.bind(this));
     excludeSpacesEl.addEventListener("change", this.handleExcludeSpacesChange.bind(this));
     characterLimitCheckboxEl.addEventListener("change", this.handleCharacterLimitToggle.bind(this));
+    densityListSeeMoreEl.addEventListener("click", this.handleDensityListSeeMoreClick.bind(this));
   }
 
   handleExcludeSpacesChange(event) {
@@ -116,7 +119,6 @@ class TextAnalyzer extends HTMLElement {
     // Sort characters by frequency (descending) and show top 5
     const sortedCharacters = Object.entries(characterCount)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
 
     sortedCharacters.forEach(([character, count]) => {
       const percentage = ((count / characters.length) * 100).toFixed(2);
@@ -147,6 +149,24 @@ class TextAnalyzer extends HTMLElement {
     }
 
     this.handleDensityListEmptyMessage(event);
+  }
+
+  handleDensityListSeeMoreClick(event) {
+    const densityListElSetHeight = 200;
+    const densityListEl = this.querySelector("[data-text-analyzer='densityList']");
+    const densityListElRealHeight = densityListEl.scrollHeight;
+
+    if (this.isExpanded === undefined) {
+      this.isExpanded = false;
+    }
+    
+    this.isExpanded = !this.isExpanded;
+    
+    if (this.isExpanded === true) {
+      densityListEl.style.maxHeight = densityListElRealHeight + "px";
+    } else {
+      densityListEl.style.maxHeight = densityListElSetHeight + "px";
+    }
   }
 
   handleDensityListEmptyMessage(event) {
