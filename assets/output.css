@@ -9,14 +9,12 @@
     --color-yellow-500: #FF9F00;
     --color-blue-400: #D3A0FA;
     --color-blue-500: #C27CF8;
-    --color-purple-400: oklch(71.4% 0.203 305.504);
     --color-neutral-100: #F2F2F7;
     --color-neutral-200: #E4E4EF;
     --color-neutral-600: #404254;
     --color-neutral-700: #2A2B37;
     --color-neutral-900: #12131A;
     --spacing: 0.25rem;
-    --container-4xl: 56rem;
     --container-5xl: 64rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -198,20 +196,8 @@
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
-  .right-0 {
-    right: calc(var(--spacing) * 0);
-  }
   .right-\[-25px\] {
     right: -25px;
-  }
-  .right-\[-50\%\] {
-    right: -50%;
-  }
-  .right-\[-50px\] {
-    right: -50px;
-  }
-  .right-\[-75px\] {
-    right: -75px;
   }
   .container {
     width: 100%;
@@ -262,6 +248,9 @@
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
   }
+  .mb-16 {
+    margin-bottom: calc(var(--spacing) * 16);
+  }
   .block {
     display: block;
   }
@@ -277,9 +266,6 @@
   .inline-block {
     display: inline-block;
   }
-  .h-10 {
-    height: calc(var(--spacing) * 10);
-  }
   .h-\[30px\] {
     height: 30px;
   }
@@ -291,9 +277,6 @@
   }
   .min-h-screen {
     min-height: 100vh;
-  }
-  .w-10 {
-    width: calc(var(--spacing) * 10);
   }
   .w-\[55px\] {
     width: 55px;
@@ -367,9 +350,6 @@
   }
   .bg-orange-500 {
     background-color: var(--color-orange-500);
-  }
-  .bg-purple-400 {
-    background-color: var(--color-purple-400);
   }
   .bg-yellow-500 {
     background-color: var(--color-yellow-500);
@@ -452,6 +432,41 @@
       @media (hover: hover) {
         cursor: pointer;
       }
+    }
+  }
+  .sm\:grid-cols-3 {
+    @media (width >= 40rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .md\:h-\[30px\] {
+    @media (width >= 48rem) {
+      height: 30px;
+    }
+  }
+  .md\:grid-cols-3 {
+    @media (width >= 48rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .md\:flex-col {
+    @media (width >= 48rem) {
+      flex-direction: column;
+    }
+  }
+  .md\:flex-row {
+    @media (width >= 48rem) {
+      flex-direction: row;
+    }
+  }
+  .md\:gap-6 {
+    @media (width >= 48rem) {
+      gap: calc(var(--spacing) * 6);
+    }
+  }
+  .\32 xl\:flex-row {
+    @media (width >= 96rem) {
+      flex-direction: row;
     }
   }
   .light\:block {
