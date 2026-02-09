@@ -70,15 +70,20 @@ class TextAnalyzer extends HTMLElement {
       characterCount = text.length;
     }
 
-    totalCharactersEl.textContent = characterCount;
+    if (characterCount > 0) {
+      totalCharactersEl.textContent = characterCount.toString().padStart(2, "0");
+    } else {
+      totalCharactersEl.textContent = "00";
+    }
   }
 
   handleWordCount(event) {
-    const words = event.target.value.split("").filter(word => word !== " ").length;
+    const text = event.target.value.trim();
+    const words = text.length > 0 ? text.split(/\s+/).filter(word => word.length > 0).length : 0;
     const wordCountEl = this.querySelector("[data-text-analyzer='wordCount']");
-
+  
     if (words > 0) {
-      wordCountEl.textContent = words;
+      wordCountEl.textContent = words.toString().padStart(2, "0");
     } else {
       wordCountEl.textContent = "00";
     }
@@ -90,7 +95,7 @@ class TextAnalyzer extends HTMLElement {
     const sentenceCountEl = this.querySelector("[data-text-analyzer='sentenceCount']");
 
     if (sentences > 0) {
-      sentenceCountEl.textContent = sentences;
+      sentenceCountEl.textContent = sentences.toString().padStart(2, "0");
     } else {
       sentenceCountEl.textContent = "00";
     }
