@@ -101,44 +101,41 @@ class TextAnalyzer extends HTMLElement {
     const characters = event.target.value.split("").filter(character => character !== " ");
     
     const characterCount = characters.reduce((acc, character) => {
-      acc[character] = (acc[character] || 0) + 1;
+      const upperChar = character.toUpperCase();
+      acc[upperChar] = (acc[upperChar] || 0) + 1;
       return acc;
     }, {});
 
     densityListEl.innerHTML = "";
 
-    for (const character in characterCount) {
-      const existingItem = densityListEl.querySelector(`[data-character="${character.toUpperCase()}"]`);
+    // Sort characters by frequency (descending) and show top 5
+    const sortedCharacters = Object.entries(characterCount)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    sortedCharacters.forEach(([character, count]) => {
+      const percentage = ((count / characters.length) * 100).toFixed(2);
       
-      if (existingItem) {
-        const progress = existingItem.querySelector("[data-text-analyzer='densityProgress']");
-        const count = existingItem.querySelector("[data-text-analyzer='densityCount']");
-        const percentage = existingItem.querySelector("[data-text-analyzer='densityPercentage']");
-        
-        progress.value = characterCount[character];
-        count.textContent = characterCount[character];
-        percentage.textContent = (characterCount[character] / characters.length * 100).toFixed(2) + "%";
-      } else {
-        const listItem = document.createElement("li");
+      const listItem = document.createElement("li");
+      listItem.classList.add("flex", "flex-row", "items-center", "gap-4", "w-full");
+      listItem.setAttribute("data-character", character);
+      listItem.setAttribute("data-text-analyzer", "densityListItem");
+      
+      listItem.innerHTML = `
+        <span class="text-neutral-0 light:text-neutral-900 text-lg min-w-[24px]" data-text-analyzer="densityCharacter">${character}</span>
+        <div class="flex-1 h-3">
+          <progress class="w-full h-full rounded-full bg-neutral-700 light:bg-neutral-200" data-text-analyzer="densityProgress" value="${count}" max="${characters.length}">0</progress>
+        </div>
+        <span class="text-neutral-0 light:text-neutral-900 text-base text-right min-w-[100px] whitespace-nowrap" data-text-analyzer="densityStats">${count} (${percentage}%)</span>
+      `;
+      
+      densityListEl.appendChild(listItem);
+    });
 
-        listItem.setAttribute("data-character", character.toUpperCase());
-        listItem.setAttribute("data-text-analyzer", "densityListItem");
-        
-        listItem.innerHTML = `
-          <span data-text-analyzer="densityCharacter">${character.toUpperCase()}</span>
-          <progress data-text-analyzer="densityProgress" value="${characterCount[character]}" max="${characters.length}">0</progress>
-          <span data-text-analyzer="densityCount">${characterCount[character]}</span>
-          <span data-text-analyzer="densityPercentage">${(characterCount[character] / characters.length * 100).toFixed(2)}%</span>
-        `;
-        
-        densityListEl.appendChild(listItem);
-      }
-    }
-
-    const listItemsCount = densityListEl.querySelectorAll("[data-text-analyzer='densityListItem']");
+    const listItemsCount = Object.keys(characterCount).length;
     const seeMoreButtonEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
     
-    if (listItemsCount.length > 5) {
+    if (listItemsCount > 5) {
       seeMoreButtonEl.style.display = "block";
     } else {
       seeMoreButtonEl.style.display = "none";

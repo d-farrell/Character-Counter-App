@@ -153,4 +153,26 @@
     background-color: var(--color-blue-500);
     border: none;
   }
+
+  /* Progress bar webkit/moz pseudo-elements - using data attribute selector */
+  progress[data-text-analyzer="densityProgress"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  progress[data-text-analyzer="densityProgress"]::-webkit-progress-bar {
+    border-radius: 9999px;
+  }
+
+  progress[data-text-analyzer="densityProgress"]::-webkit-progress-value {
+    background-color: var(--color-blue-400);
+    border-radius: 9999px;
+    transition: width 0.3s ease;
+  }
+
+  progress[data-text-analyzer="densityProgress"]::-moz-progress-bar {
+    background-color: var(--color-blue-400);
+    border-radius: 9999px;
+  }
 }
