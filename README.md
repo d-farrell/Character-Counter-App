@@ -2,6 +2,10 @@
 
 A real-time text analysis tool that provides comprehensive statistics about your text as you type. Built with modern web technologies and featuring a beautiful dark/light theme toggle.
 
+![Character Counter App - Desktop](https://res.cloudinary.com/dz209s6jk/image/upload/f_auto,q_auto,w_700/Challenges/zbvrotjht8wmzzjjwjbd.jpg)
+
+![Character Counter App - Mobile](https://res.cloudinary.com/dz209s6jk/image/upload/f_auto,q_auto,w_700/Challenges/ocxq5yikhjmaw2rrg9ke.jpg)
+
 ## 🎯 Features
 
 - **Real-time Text Analysis**: Get instant statistics as you type
