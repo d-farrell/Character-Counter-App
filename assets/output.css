@@ -11,7 +11,6 @@
     --color-blue-500: #C27CF8;
     --color-neutral-100: #F2F2F7;
     --color-neutral-200: #E4E4EF;
-    --color-neutral-400: oklch(70.8% 0 0);
     --color-neutral-600: #404254;
     --color-neutral-700: #2A2B37;
     --color-neutral-800: #21222C;
@@ -244,9 +243,6 @@
   }
   .my-5 {
     margin-block: calc(var(--spacing) * 5);
-  }
-  .mt-3 {
-    margin-top: calc(var(--spacing) * 3);
   }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
@@ -488,11 +484,6 @@
       color: var(--color-neutral-200);
     }
   }
-  .placeholder\:text-neutral-400 {
-    &::placeholder {
-      color: var(--color-neutral-400);
-    }
-  }
   .hover\:cursor-pointer {
     &:hover {
       @media (hover: hover) {
@@ -500,21 +491,9 @@
       }
     }
   }
-  .focus\:ring-1 {
-    &:focus {
-      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    }
-  }
   .focus\:ring-2 {
     &:focus {
       --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    }
-  }
-  .focus\:ring-4 {
-    &:focus {
-      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
@@ -532,44 +511,9 @@
       --tw-ring-offset-shadow: var(--tw-ring-inset,) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
     }
   }
-  .focus\:drop-shadow-\[0_0_4px_theme\(colors\.blue\.400\)\] {
-    &:focus {
-      --tw-drop-shadow-size: drop-shadow(0 0 4px var(--tw-drop-shadow-color, #D3A0FA));
-      --tw-drop-shadow: var(--tw-drop-shadow-size);
-      filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-    }
-  }
   .focus\:drop-shadow-\[0_0_5px_theme\(colors\.blue\.400\)\] {
     &:focus {
       --tw-drop-shadow-size: drop-shadow(0 0 5px var(--tw-drop-shadow-color, #D3A0FA));
-      --tw-drop-shadow: var(--tw-drop-shadow-size);
-      filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-    }
-  }
-  .focus\:drop-shadow-\[0_0_8px_theme\(colors\.blue\.400\)\] {
-    &:focus {
-      --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, #D3A0FA));
-      --tw-drop-shadow: var(--tw-drop-shadow-size);
-      filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-    }
-  }
-  .focus\:drop-shadow-\[0_0_10px_theme\(colors\.blue\.400\)\] {
-    &:focus {
-      --tw-drop-shadow-size: drop-shadow(0 0 10px var(--tw-drop-shadow-color, #D3A0FA));
-      --tw-drop-shadow: var(--tw-drop-shadow-size);
-      filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-    }
-  }
-  .focus\:drop-shadow-\[0_4_4px_theme\(colors\.blue\.400\)\] {
-    &:focus {
-      --tw-drop-shadow-size: drop-shadow(0 4 4px var(--tw-drop-shadow-color, #D3A0FA));
-      --tw-drop-shadow: var(--tw-drop-shadow-size);
-      filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-    }
-  }
-  .focus\:drop-shadow-\[0_4px_4px_theme\(colors\.blue\.400\)\] {
-    &:focus {
-      --tw-drop-shadow-size: drop-shadow(0 4px 4px var(--tw-drop-shadow-color, #D3A0FA));
       --tw-drop-shadow: var(--tw-drop-shadow-size);
       filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
     }

@@ -1,6 +1,14 @@
 class TextAnalyzer extends HTMLElement {
   constructor() {
     super();
+
+    this.boundHandlers = {
+      textareaInput: this.handleTextareaInput.bind(this),
+      characterLimitInput: this.handleCharacterLimitInput.bind(this),
+      excludeSpacesChange: this.handleExcludeSpacesChange.bind(this),
+      characterLimitToggle: this.handleCharacterLimitToggle.bind(this),
+      densityListSeeMoreClick: this.handleDensityListSeeMoreClick.bind(this),
+    };
   }
 
   connectedCallback() {
@@ -14,41 +22,49 @@ class TextAnalyzer extends HTMLElement {
     const characterLimitCheckboxEl = this.querySelector("[data-text-analyzer='characterLimitCheckbox']");
     const densityListSeeMoreEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
     
+    const requiredElements = [textareaEl, characterLimitEl, excludeSpacesEl, characterLimitCheckboxEl, densityListSeeMoreEl];
 
-    textareaEl.addEventListener("input", this.handleTextareaInput.bind(this));
-    characterLimitEl.addEventListener("input", this.handleCharacterLimitInput.bind(this));
-    excludeSpacesEl.addEventListener("change", this.handleExcludeSpacesChange.bind(this));
-    characterLimitCheckboxEl.addEventListener("change", this.handleCharacterLimitToggle.bind(this));
-    densityListSeeMoreEl.addEventListener("click", this.handleDensityListSeeMoreClick.bind(this));
+    if (requiredElements.some(el => el === null)) {
+      console.warn("TextAnalyzer: One or more required elements missing. Check [data-text-analyzer] attributes.");
+      return;
+    }
+
+    textareaEl.addEventListener("input", this.boundHandlers.textareaInput);
+    characterLimitEl.addEventListener("input", this.boundHandlers.characterLimitInput);
+    excludeSpacesEl.addEventListener("change", this.boundHandlers.excludeSpacesChange);
+    characterLimitCheckboxEl.addEventListener("change", this.boundHandlers.characterLimitToggle);
+    densityListSeeMoreEl.addEventListener("click", this.boundHandlers.densityListSeeMoreClick);
   }
 
   handleExcludeSpacesChange(event) {
     const isChecked = event.target.checked;
 
-    if (isChecked == true) {
+    if (isChecked === true) {
       this.excludeSpaces = true;
-      this.handleCharacterCount(event);
+      this.handleCharacterCount();
     } else {
       this.excludeSpaces = false;
-      this.handleCharacterCount(event);
+      this.handleCharacterCount();
     }
   }
   handleCharacterLimitToggle(event) {
     const isChecked = event.target.checked;
-
-    if (isChecked == true) {
-      this.characterLimit = true;
-    } else {
-      this.characterLimit = false;
-    }
 
     this.querySelector("[data-text-analyzer='characterLimit']").style.display = isChecked ? "inline-block" : "none";
   }
 
   handleCharacterLimitInput(event) {
     const limitValue = Number(event.target.value);
+    if (Number.isNaN(limitValue) || limitValue < 0) return;
     
-    this.querySelector("[data-text-analyzer='textarea']").setAttribute("maxlength", limitValue);
+    const textareaEl = this.querySelector("[data-text-analyzer='textarea']");
+    if (!textareaEl) return;
+    
+    if (limitValue === 0) {
+      textareaEl.removeAttribute("maxlength");
+    } else {
+      textareaEl.setAttribute("maxlength", limitValue);
+    }
   }
 
   handleTextareaInput(event) {
@@ -59,15 +75,13 @@ class TextAnalyzer extends HTMLElement {
     this.handleReadingTime(event)
   }
 
-  handleCharacterCount(event) {    
+  handleCharacterCount() {    
     let characterCount;
     const text = this.querySelector("[data-text-analyzer='textarea']").value;
     const totalCharactersEl = this.querySelector("[data-text-analyzer='totalCharacters']");
 
-    if (this.excludeSpaces == true) {
+    if (this.excludeSpaces === true) {
       const textWithoutSpaces = text.replace(/\s/g, "");
-
-      totalCharactersEl.length = characterCount;
       characterCount = textWithoutSpaces.length;
     } else {
       characterCount = text.length;
@@ -148,12 +162,13 @@ class TextAnalyzer extends HTMLElement {
       seeMoreButtonEl.style.display = "none";
     }
 
-    this.handleDensityListEmptyMessage(event);
+    this.handleDensityListEmptyMessage();
   }
 
   handleDensityListSeeMoreClick(event) {
     const densityListElSetHeight = 200;
     const densityListEl = this.querySelector("[data-text-analyzer='densityList']");
+    const seeMoreButtonEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
     const densityListElRealHeight = densityListEl.scrollHeight;
 
     if (this.isExpanded === undefined) {
@@ -161,6 +176,7 @@ class TextAnalyzer extends HTMLElement {
     }
     
     this.isExpanded = !this.isExpanded;
+    seeMoreButtonEl?.setAttribute("aria-expanded", this.isExpanded);
     
     if (this.isExpanded === true) {
       densityListEl.style.maxHeight = densityListElRealHeight + "px";
@@ -169,12 +185,12 @@ class TextAnalyzer extends HTMLElement {
     }
   }
 
-  handleDensityListEmptyMessage(event) {
-    if (event.target.value.length > 0) {
-      this.querySelector("[data-text-analyzer='densityListEmpty']").style.display = "none";
-    } else {
-      this.querySelector("[data-text-analyzer='densityListEmpty']").style.display = "block";
-    }
+  handleDensityListEmptyMessage() {
+    const textareaEl = this.querySelector("[data-text-analyzer='textarea']");
+    const emptyEl = this.querySelector("[data-text-analyzer='densityListEmpty']");
+    if (!textareaEl || !emptyEl) return;
+  
+    emptyEl.style.display = textareaEl.value.length > 0 ? "none" : "block";
   }
 
   handleReadingTime(event) {
@@ -187,7 +203,21 @@ class TextAnalyzer extends HTMLElement {
     const readingTimeUnitEl = this.querySelector("[data-text-analyzer='readingTimeUnit']");
 
     readingTimeEl.textContent = readingTime;
-    readingTimeUnitEl.textContent = "minutes";
+    readingTimeUnitEl.textContent = readingTime === 1 ? "minute" : "minutes";
+  }
+
+  disconnectedCallback() {
+    const textareaEl = this.querySelector("[data-text-analyzer='textarea']");
+    const characterLimitEl = this.querySelector("[data-text-analyzer='characterLimit']");
+    const excludeSpacesEl = this.querySelector("[data-text-analyzer='excludeSpaces']");
+    const characterLimitCheckboxEl = this.querySelector("[data-text-analyzer='characterLimitCheckbox']");
+    const densityListSeeMoreEl = this.querySelector("[data-text-analyzer='densityListSeeMore']");
+  
+    textareaEl?.removeEventListener("input", this.boundHandlers.textareaInput);
+    characterLimitEl?.removeEventListener("input", this.boundHandlers.characterLimitInput);
+    excludeSpacesEl?.removeEventListener("change", this.boundHandlers.excludeSpacesChange);
+    characterLimitCheckboxEl?.removeEventListener("change", this.boundHandlers.characterLimitToggle);
+    densityListSeeMoreEl?.removeEventListener("click", this.boundHandlers.densityListSeeMoreClick);
   }
 }
 
