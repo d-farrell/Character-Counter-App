@@ -12,30 +12,35 @@ class TextAnalyzer extends HTMLElement {
   }
 
   connectedCallback() {
+    this.cacheElements()
     this.setupListeners()
   }
 
-  setupListeners() {
-    const textareaEl = this.querySelector("[data-text-analyzer='textarea']")
-    const characterLimitEl = this.querySelector(
-      "[data-text-analyzer='characterLimit']"
-    )
-    const excludeSpacesEl = this.querySelector(
-      "[data-text-analyzer='excludeSpaces']"
-    )
-    const characterLimitCheckboxEl = this.querySelector(
-      "[data-text-analyzer='characterLimitCheckbox']"
-    )
-    const densityListSeeMoreEl = this.querySelector(
-      "[data-text-analyzer='densityListSeeMore']"
-    )
+  cacheElements() {
+    const selector = key => this.querySelector(`[data-text-analyzer="${key}"]`)
+    this.els = {
+      textarea: selector('textarea'),
+      characterLimit: selector('characterLimit'),
+      excludeSpaces: selector('excludeSpaces'),
+      characterLimitCheckbox: selector('characterLimitCheckbox'),
+      densityListSeeMore: selector('densityListSeeMore'),
+      totalCharacters: selector('totalCharacters'),
+      wordCount: selector('wordCount'),
+      sentenceCount: selector('sentenceCount'),
+      densityList: selector('densityList'),
+      densityListEmpty: selector('densityListEmpty'),
+      readingTime: selector('readingTime'),
+      readingTimeUnit: selector('readingTimeUnit'),
+    }
+  }
 
+  setupListeners() {
     const requiredElements = [
-      textareaEl,
-      characterLimitEl,
-      excludeSpacesEl,
-      characterLimitCheckboxEl,
-      densityListSeeMoreEl,
+      this.els.textarea,
+      this.els.characterLimit,
+      this.els.excludeSpaces,
+      this.els.characterLimitCheckbox,
+      this.els.densityListSeeMore,
     ]
 
     if (requiredElements.some(el => el === null)) {
@@ -45,20 +50,23 @@ class TextAnalyzer extends HTMLElement {
       return
     }
 
-    textareaEl.addEventListener('input', this.boundHandlers.textareaInput)
-    characterLimitEl.addEventListener(
+    this.els.textarea.addEventListener(
+      'input',
+      this.boundHandlers.textareaInput
+    )
+    this.els.characterLimit.addEventListener(
       'input',
       this.boundHandlers.characterLimitInput
     )
-    excludeSpacesEl.addEventListener(
+    this.els.excludeSpaces.addEventListener(
       'change',
       this.boundHandlers.excludeSpacesChange
     )
-    characterLimitCheckboxEl.addEventListener(
+    this.els.characterLimitCheckbox.addEventListener(
       'change',
       this.boundHandlers.characterLimitToggle
     )
-    densityListSeeMoreEl.addEventListener(
+    this.els.densityListSeeMore.addEventListener(
       'click',
       this.boundHandlers.densityListSeeMoreClick
     )
@@ -78,21 +86,19 @@ class TextAnalyzer extends HTMLElement {
   handleCharacterLimitToggle(event) {
     const isChecked = event.target.checked
 
-    this.querySelector("[data-text-analyzer='characterLimit']").style.display =
-      isChecked ? 'inline-block' : 'none'
+    this.els.characterLimit.style.display = isChecked ? 'inline-block' : 'none'
   }
 
   handleCharacterLimitInput(event) {
     const limitValue = Number(event.target.value)
     if (Number.isNaN(limitValue) || limitValue < 0) return
 
-    const textareaEl = this.querySelector("[data-text-analyzer='textarea']")
-    if (!textareaEl) return
+    if (!this.els.textarea) return
 
     if (limitValue === 0) {
-      textareaEl.removeAttribute('maxlength')
+      this.els.textarea.removeAttribute('maxlength')
     } else {
-      textareaEl.setAttribute('maxlength', limitValue)
+      this.els.textarea.setAttribute('maxlength', limitValue)
     }
   }
 
@@ -106,10 +112,8 @@ class TextAnalyzer extends HTMLElement {
 
   handleCharacterCount() {
     let characterCount
-    const text = this.querySelector("[data-text-analyzer='textarea']").value
-    const totalCharactersEl = this.querySelector(
-      "[data-text-analyzer='totalCharacters']"
-    )
+    const text = this.els.textarea.value
+    const totalCharactersEl = this.els.totalCharacters
 
     if (this.excludeSpaces === true) {
       const textWithoutSpaces = text.replace(/\s/g, '')
@@ -131,7 +135,7 @@ class TextAnalyzer extends HTMLElement {
       text.length > 0
         ? text.split(/\s+/).filter(word => word.length > 0).length
         : 0
-    const wordCountEl = this.querySelector("[data-text-analyzer='wordCount']")
+    const wordCountEl = this.els.wordCount
 
     if (words > 0) {
       wordCountEl.textContent = words.toString().padStart(2, '0')
@@ -146,9 +150,7 @@ class TextAnalyzer extends HTMLElement {
       .map(s => s.trim())
       .filter(s => s.length > 0)
     const sentences = trimmedSentences.length
-    const sentenceCountEl = this.querySelector(
-      "[data-text-analyzer='sentenceCount']"
-    )
+    const sentenceCountEl = this.els.sentenceCount
 
     if (sentences > 0) {
       sentenceCountEl.textContent = sentences.toString().padStart(2, '0')
@@ -158,9 +160,7 @@ class TextAnalyzer extends HTMLElement {
   }
 
   handleLetterDensity(event) {
-    const densityListEl = this.querySelector(
-      "[data-text-analyzer='densityList']"
-    )
+    const densityListEl = this.els.densityList
     const characters = event.target.value
       .split('')
       .filter(character => character !== ' ')
@@ -204,9 +204,7 @@ class TextAnalyzer extends HTMLElement {
     })
 
     const listItemsCount = Object.keys(characterCount).length
-    const seeMoreButtonEl = this.querySelector(
-      "[data-text-analyzer='densityListSeeMore']"
-    )
+    const seeMoreButtonEl = this.els.densityListSeeMore
 
     if (listItemsCount > 5) {
       seeMoreButtonEl.style.display = 'block'
@@ -219,12 +217,8 @@ class TextAnalyzer extends HTMLElement {
 
   handleDensityListSeeMoreClick(event) {
     const densityListElSetHeight = 200
-    const densityListEl = this.querySelector(
-      "[data-text-analyzer='densityList']"
-    )
-    const seeMoreButtonEl = this.querySelector(
-      "[data-text-analyzer='densityListSeeMore']"
-    )
+    const densityListEl = this.els.densityList
+    const seeMoreButtonEl = this.els.densityListSeeMore
     const densityListElRealHeight = densityListEl.scrollHeight
 
     if (this.isExpanded === undefined) {
@@ -242,10 +236,8 @@ class TextAnalyzer extends HTMLElement {
   }
 
   handleDensityListEmptyMessage() {
-    const textareaEl = this.querySelector("[data-text-analyzer='textarea']")
-    const emptyEl = this.querySelector(
-      "[data-text-analyzer='densityListEmpty']"
-    )
+    const textareaEl = this.els.textarea
+    const emptyEl = this.els.densityListEmpty
     if (!textareaEl || !emptyEl) return
 
     emptyEl.style.display = textareaEl.value.length > 0 ? 'none' : 'block'
@@ -257,31 +249,19 @@ class TextAnalyzer extends HTMLElement {
     const wordCount = words.filter(word => word.length > 0).length
     const readingTime = Math.ceil(wordCount / wordsPerMinute)
 
-    const readingTimeEl = this.querySelector(
-      "[data-text-analyzer='readingTime']"
-    )
-    const readingTimeUnitEl = this.querySelector(
-      "[data-text-analyzer='readingTimeUnit']"
-    )
+    const readingTimeEl = this.els.readingTime
+    const readingTimeUnitEl = this.els.readingTimeUnit
 
     readingTimeEl.textContent = readingTime
     readingTimeUnitEl.textContent = readingTime === 1 ? 'minute' : 'minutes'
   }
 
   disconnectedCallback() {
-    const textareaEl = this.querySelector("[data-text-analyzer='textarea']")
-    const characterLimitEl = this.querySelector(
-      "[data-text-analyzer='characterLimit']"
-    )
-    const excludeSpacesEl = this.querySelector(
-      "[data-text-analyzer='excludeSpaces']"
-    )
-    const characterLimitCheckboxEl = this.querySelector(
-      "[data-text-analyzer='characterLimitCheckbox']"
-    )
-    const densityListSeeMoreEl = this.querySelector(
-      "[data-text-analyzer='densityListSeeMore']"
-    )
+    const textareaEl = this.els.textarea
+    const characterLimitEl = this.els.characterLimit
+    const excludeSpacesEl = this.els.excludeSpaces
+    const characterLimitCheckboxEl = this.els.characterLimitCheckbox
+    const densityListSeeMoreEl = this.els.densityListSeeMore
 
     textareaEl?.removeEventListener('input', this.boundHandlers.textareaInput)
     characterLimitEl?.removeEventListener(
