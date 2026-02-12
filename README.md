@@ -6,6 +6,9 @@ A real-time text analysis tool that provides comprehensive statistics about your
 
 ![Character Counter App - Mobile](https://res.cloudinary.com/dz209s6jk/image/upload/f_auto,q_auto,w_700/Challenges/ocxq5yikhjmaw2rrg9ke.jpg)
 
+## DEMO
+https://character-counter-app-two.vercel.app/
+
 ## 🎯 Features
 
 - **Real-time Text Analysis**: Get instant statistics as you type
